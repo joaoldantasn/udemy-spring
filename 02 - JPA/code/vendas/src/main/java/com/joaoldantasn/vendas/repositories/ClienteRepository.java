@@ -1,5 +1,7 @@
 package com.joaoldantasn.vendas.repositories;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,5 +23,30 @@ public class ClienteRepository {
 		return cliente;
 	}
 	
+	@Transactional
+	public Cliente atualizar(Cliente cliente) {
+		entityManager.merge(cliente);
+		return cliente;
+	}
+	
+	@Transactional
+	public void deletar(Cliente cliente) {
+		if(!entityManager.contains(cliente)) {
+			cliente = entityManager.merge(cliente);
+		}
+		entityManager.remove(cliente);
+	}
+	
+	@Transactional
+	public void deletar(Integer id) {
+		Cliente cliente = entityManager.find(Cliente.class, id);
+		deletar(cliente);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<Cliente> obterTodos(){
+		return entityManager.createQuery("from Cliente", Cliente.class).getResultList();
+	}
+
 	
 }
