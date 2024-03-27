@@ -17,7 +17,7 @@ public class VendasApplication {
 		return args -> {
 			Cliente cliente = new Cliente();
 			cliente.setNome("juliette");
-			repository.salvar(cliente);
+			repository.save(cliente);
 		};
 	}
 
