@@ -1,5 +1,7 @@
 package com.joaoldantasn.vendas;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +20,9 @@ public class VendasApplication {
 			Cliente cliente = new Cliente();
 			cliente.setNome("juliette");
 			repository.save(cliente);
+			
+			List<Cliente> result = repository.encontrarPorNome("juliette");
+			result.forEach(System.out::println);
 		};
 	}
 
