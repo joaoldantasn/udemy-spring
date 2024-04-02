@@ -15,6 +15,7 @@ import com.joaoldantasn.vendas.entities.ItemPedido;
 import com.joaoldantasn.vendas.entities.Pedido;
 import com.joaoldantasn.vendas.entities.Produto;
 import com.joaoldantasn.vendas.entities.enums.StatusPedido;
+import com.joaoldantasn.vendas.exceptions.PedidoNaoEncontradoException;
 import com.joaoldantasn.vendas.exceptions.RegraDeNegocioException;
 import com.joaoldantasn.vendas.repositories.ClienteRepository;
 import com.joaoldantasn.vendas.repositories.ItemPedidoRepository;
@@ -75,6 +76,18 @@ public class PedidoServiceImpl implements PedidoService{
 	@Override
 	public Optional<Pedido> obterPedidoCompleto(Integer id) {
 		return repository.findByIdFetchItens(id);
+	}
+
+	@Override
+	@Transactional
+	public void atualizaStatus(Integer id, StatusPedido statusPedido) {
+		repository
+				.findById(id)
+				.map(pedido -> {
+					pedido.setStatus(statusPedido);
+					return repository.save(pedido);
+				}).orElseThrow(() -> new PedidoNaoEncontradoException());
+		
 	}
 	
 }
