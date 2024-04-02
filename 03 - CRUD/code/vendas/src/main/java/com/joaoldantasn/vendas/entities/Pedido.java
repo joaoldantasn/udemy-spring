@@ -4,8 +4,11 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 
+import com.joaoldantasn.vendas.entities.enums.StatusPedido;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,7 +37,10 @@ public class Pedido {
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
 	
-	@OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER)
+	@Enumerated(EnumType.STRING)
+	private StatusPedido status;
+	
+	@OneToMany(mappedBy = "pedido")
 	private Set<ItemPedido> itens;
 	
 

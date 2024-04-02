@@ -14,6 +14,7 @@ import com.joaoldantasn.vendas.entities.Cliente;
 import com.joaoldantasn.vendas.entities.ItemPedido;
 import com.joaoldantasn.vendas.entities.Pedido;
 import com.joaoldantasn.vendas.entities.Produto;
+import com.joaoldantasn.vendas.entities.enums.StatusPedido;
 import com.joaoldantasn.vendas.exceptions.RegraDeNegocioException;
 import com.joaoldantasn.vendas.repositories.ClienteRepository;
 import com.joaoldantasn.vendas.repositories.ItemPedidoRepository;
@@ -44,6 +45,7 @@ public class PedidoServiceImpl implements PedidoService{
 		pedido.setTotal(dto.getTotal());
 		pedido.setDataPedido(LocalDate.now());
 		pedido.setCliente(cliente);
+		pedido.setStatus(StatusPedido.REALIZADO);
 		
 		List<ItemPedido> itensPedidos = converterItens(pedido, dto.getItems());
 		repository.save(pedido);
