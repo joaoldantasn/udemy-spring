@@ -2,6 +2,8 @@ package com.joaoldantasn.vendas.entities;
 
 import java.util.Set;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -26,8 +28,10 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	@NotEmpty(message = "Campo nome é obrigatório")
+	@NotEmpty(message = "Campo nome é obrigatório.")
 	private String nome;
+	@NotEmpty(message = "Campo cpf é obrigatório.")
+	@CPF(message = "Informe um cpf válido")
 	private String cpf;
 	
 	@JsonIgnore
