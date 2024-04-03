@@ -28,10 +28,10 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	@NotEmpty(message = "Campo nome é obrigatório.")
+	@NotEmpty(message = "{campo.nome.obrigatorio}")
 	private String nome;
-	@NotEmpty(message = "Campo cpf é obrigatório.")
-	@CPF(message = "Informe um cpf válido")
+	@NotEmpty(message = "{campo.cpf.obrigatorio}")
+	@CPF(message = "{campo.cpf.invalido}")
 	private String cpf;
 	
 	@JsonIgnore
