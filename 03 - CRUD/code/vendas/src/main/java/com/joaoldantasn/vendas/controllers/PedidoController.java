@@ -29,6 +29,8 @@ import com.joaoldantasn.vendas.entities.Pedido;
 import com.joaoldantasn.vendas.entities.enums.StatusPedido;
 import com.joaoldantasn.vendas.services.PedidoService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/pedidos")
 public class PedidoController {
@@ -41,7 +43,7 @@ public class PedidoController {
 	
 	@PostMapping
 	@ResponseStatus(CREATED)
-	public Integer save(@RequestBody PedidoDTO dto) {
+	public Integer save(@RequestBody @Valid PedidoDTO dto) {
 		Pedido pedido = service.salvar(dto);
 		return pedido.getId();
 	}
