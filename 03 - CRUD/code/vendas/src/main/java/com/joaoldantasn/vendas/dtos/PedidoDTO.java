@@ -3,6 +3,8 @@ package com.joaoldantasn.vendas.dtos;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.joaoldantasn.vendas.validation.NotEmptyList;
+
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +19,7 @@ public class PedidoDTO {
 	private Integer cliente;
 	@NotNull(message = "Campo total do pedido é obrigatório.")
 	private BigDecimal total;
+	@NotEmptyList(message = "Pedido não pode ser realizado sem itens")
 	private List<ItemPedidoDTO> items;
 	
 }
