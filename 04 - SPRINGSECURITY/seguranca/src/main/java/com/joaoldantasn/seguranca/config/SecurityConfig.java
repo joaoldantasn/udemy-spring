@@ -16,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.joaoldantasn.seguranca.security.CustomAuthenticationProvider;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
@@ -26,7 +28,7 @@ public class SecurityConfig {
 
 	
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http, SenhaMasterAuthenticationProvider senhaMasterAuthenticationProvider) throws Exception{
+	public SecurityFilterChain securityFilterChain(HttpSecurity http, SenhaMasterAuthenticationProvider senhaMasterAuthenticationProvider, CustomAuthenticationProvider customAuthenticationProvider) throws Exception{
 		return http
 				.csrf(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(customizer -> {
@@ -37,6 +39,7 @@ public class SecurityConfig {
 				})
 				.httpBasic(Customizer.withDefaults())
 				.authenticationProvider(senhaMasterAuthenticationProvider)
+				.authenticationProvider(customAuthenticationProvider)
 				.build();
 	}
 	
