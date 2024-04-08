@@ -23,6 +23,7 @@ public class SenhaMasterAuthenticationProvider implements AuthenticationProvider
 		String senhaMaster = "@321";
 		
 		if(loginMaster.equals(login) && senhaMaster.equals(senha)) {
+			//tem q ter o prefixo ROLE, porem se for adicionado o grantedAuthorityDefaults não precisa mais
 			return new UsernamePasswordAuthenticationToken("Sou Master", null, List.of(new SimpleGrantedAuthority("ADMIN")));
 		}
 		

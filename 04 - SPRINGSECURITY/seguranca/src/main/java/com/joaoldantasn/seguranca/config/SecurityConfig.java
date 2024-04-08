@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,6 +17,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	
+	// role -> grupo de usuario (perfil de usuario) -> Master, gerente, frente de loja, vendedor
+	//authority -> permissões -> cadastrar usuario, acessar tela de relatorio
 
 	
 	@Bean
@@ -23,6 +27,7 @@ public class SecurityConfig {
 		return http
 				.authorizeHttpRequests(customizer -> {
 					customizer.requestMatchers("/public").permitAll();
+					customizer.requestMatchers("/admin").hasRole("ADMIN");
 					
 					//so pode ser chamado por ultimo
 					customizer.anyRequest().authenticated();
@@ -52,5 +57,10 @@ public class SecurityConfig {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	@Bean
+	public GrantedAuthorityDefaults grantedAuthorityDefaults() {
+		return new GrantedAuthorityDefaults("");
 	}
 }
