@@ -3,6 +3,7 @@ package com.joaoldantasn.seguranca.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
@@ -16,6 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
 	
 	// role -> grupo de usuario (perfil de usuario) -> Master, gerente, frente de loja, vendedor
@@ -27,8 +29,7 @@ public class SecurityConfig {
 		return http
 				.authorizeHttpRequests(customizer -> {
 					customizer.requestMatchers("/public").permitAll();
-					customizer.requestMatchers("/admin").hasRole("ADMIN");
-					
+	
 					//so pode ser chamado por ultimo
 					customizer.anyRequest().authenticated();
 				})
